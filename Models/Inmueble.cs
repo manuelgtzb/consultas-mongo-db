@@ -1,8 +1,8 @@
-using MongoDB.Bson.Serialization.Atributes;
+using MongoDB.Bson.Serialization.Attributes;
 
 public class Inmueble {
 [BsonId]
-[BsonRepresentation(MongoDB.Bson.BsonType.ObjecId)]
+[BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
 
 public string? Id { get; set; }
 
@@ -21,7 +21,7 @@ public int Banios { get; set; }
 [BsonElement("metros_terreno")]
 
 public int MetrosTerreno { get; set; } 
-[BsonElement("metro_construccion")]
+[BsonElement("metros_construccion")]
 
 public int MetrosConstrccion { get; set; }
 [BsonElement("tiene_patio")]
@@ -36,6 +36,7 @@ public string Agencia { get; set; } = string.Empty;
 [BsonElement("fecha_publicacion")]
 
 public string FechaPublicacion { get; set; } = string.Empty;
+[BsonElement("costo")]
 
-
+public int costo { get; set; }
 }
