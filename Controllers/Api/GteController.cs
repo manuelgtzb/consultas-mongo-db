@@ -2,63 +2,62 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
 [ApiController]
-[Route("api/eq")]
-public class EqController : Controller {
-    [HttpGet("agencia-perez")]
-    public IActionResult AgenciaPerez() {
+[Route("api/gte")]
+public class GteController : Controller {
+    [HttpGet("banios-mayores-o-iguales-a-dos")]
+    public IActionResult BaniosGteDos() {
         MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
         var db = client.GetDatabase("Inmuebles");
         var collection = db.GetCollection<Inmueble>("RentasVentas");
 
-        var filtro = Builders<Inmueble>.Filter.Eq(x => x.Agencia, "Inmobiliaria Pérez");
+        var filtro = Builders<Inmueble>.Filter.Gte(x => x.Banios, 2);
         var list = collection.Find(filtro).ToList();
         return Ok(list);
     }
 
-    [HttpGet("solo-terrenos")]
-    public IActionResult SoloTerrenos() {
+    [HttpGet("pisos-mayores-o-iguales-a-dos")]
+    public IActionResult PisosGteDos() {
         MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
         var db = client.GetDatabase("Inmuebles");
         var collection = db.GetCollection<Inmueble>("RentasVentas");
 
-        var filtro = Builders<Inmueble>.Filter.Eq(x => x.Tipo, "Terreno");
+        var filtro = Builders<Inmueble>.Filter.Gte(x => x.Pisos, 2);
         var list = collection.Find(filtro).ToList();
         return Ok(list);
     }
 
-    [HttpGet("casas-en-renta")]
-    public IActionResult CasasEnRenta() {
+    [HttpGet("precio-millon-o-mas")]
+    public IActionResult PrecioMillonOMas() {
         MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
         var db = client.GetDatabase("Inmuebles");
         var collection = db.GetCollection<Inmueble>("RentasVentas");
 
-        var filtroTipo = Builders<Inmueble>.Filter.Eq(x => x.Tipo, "Casa");
+        var filtro = Builders<Inmueble>.Filter.Gte(x => x.Costo, 1000000);
+        var list = collection.Find(filtro).ToList();
+        return Ok(list);
+    }
+
+    [HttpGet("renta-mayor-o-igual-a-7000")]
+    public IActionResult RentaMayorOIgual7000() {
+        MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
+        var db = client.GetDatabase("Inmuebles");
+        var collection = db.GetCollection<Inmueble>("RentasVentas");
+
         var filtroOperacion = Builders<Inmueble>.Filter.Eq(x => x.Operacion, "Renta");
-        var filtro = Builders<Inmueble>.Filter.And(filtroTipo, filtroOperacion);
+        var filtroCosto = Builders<Inmueble>.Filter.Gte(x => x.Costo, 7000);
+        var filtro = Builders<Inmueble>.Filter.And(filtroOperacion, filtroCosto);
 
         var list = collection.Find(filtro).ToList();
         return Ok(list);
     }
 
-    [HttpGet("tienen-patio-false")]
-    public IActionResult TienenPatioFalse() {
+    [HttpGet("construccion-mayor-o-igual-150")]
+    public IActionResult ConstruccionGte150() {
         MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
         var db = client.GetDatabase("Inmuebles");
         var collection = db.GetCollection<Inmueble>("RentasVentas");
 
-        var filtro = Builders<Inmueble>.Filter.Eq(x => x.TienePatio, false);
-        var list = collection.Find(filtro).ToList();
-        return Ok(list);
-    }
-
-    [HttpGet("agentes-lopez")]
-    public IActionResult AgentesLopez() {
-        MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
-        var db = client.GetDatabase("Inmuebles");
-        var collection = db.GetCollection<Inmueble>("RentasVentas");
-
-        // Si el apellido está al final del nombre del agente
-        var filtro = Builders<Inmueble>.Filter.Regex(x => x.NombreAgente, new MongoDB.Bson.BsonRegularExpression("López$", "i"));
+        var filtro = Builders<Inmueble>.Filter.Gte(x => x.MetrosConstruccion, 150);
         var list = collection.Find(filtro).ToList();
         return Ok(list);
     }

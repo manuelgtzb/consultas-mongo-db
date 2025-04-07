@@ -23,7 +23,7 @@ public int Banios { get; set; }
 public int MetrosTerreno { get; set; } 
 [BsonElement("metros_construccion")]
 
-public int MetrosConstrccion { get; set; }
+public int MetrosConstruccion { get; set; }
 [BsonElement("tiene_patio")]
 
 public bool TienePatio { get; set; } 
@@ -38,5 +38,5 @@ public string Agencia { get; set; } = string.Empty;
 public string FechaPublicacion { get; set; } = string.Empty;
 [BsonElement("costo")]
 
-public int costo { get; set; }
+public int Costo { get; set; }
 }
