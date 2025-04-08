@@ -33,13 +33,13 @@ public class NinController : Controller {
     [HttpGet("casa-sin-banios")]
     public IActionResult CasaSinBanios() {
         var filtro = Builders<Inmueble>.Filter.And(
-            Builders<Inmueble>.Filter.Eq(x => x.Tipo, "casa"),
+            Builders<Inmueble>.Filter.Eq(x => x.Tipo, "Casa"),
             Builders<Inmueble>.Filter.Nin(x => x.Banios, new[] { 1, 2, 3, 4, 5 })
         );
         return Ok(_collection.Find(filtro).ToList());
     }
 
-    [HttpGet("terreno-no-mayor-600")]
+    [HttpGet("terreno-no-600")]
     public IActionResult TerrenoNoMayor600() {
         var filtro = Builders<Inmueble>.Filter.Lte(x => x.MetrosTerreno, 600);
         return Ok(_collection.Find(filtro).ToList());

@@ -33,7 +33,7 @@ public class NeController : Controller {
     [HttpGet("casa-no-dos-banios")]
     public IActionResult CasaNoDosBanios() {
         var filtro = Builders<Inmueble>.Filter.And(
-            Builders<Inmueble>.Filter.Eq(x => x.Tipo, "casa"),
+            Builders<Inmueble>.Filter.Eq(x => x.Tipo, "Casa"),
             Builders<Inmueble>.Filter.Ne(x => x.Banios, 2)
         );
         return Ok(_collection.Find(filtro).ToList());

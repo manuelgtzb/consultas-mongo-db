@@ -32,7 +32,7 @@ public class InController : Controller {
         var db = client.GetDatabase("Inmuebles");
         var collection = db.GetCollection<Inmueble>("RentasVentas");
 
-        var filtro = Builders<Inmueble>.Filter.In(x => x.Agencia, new[] { "García propiedades" });
+        var filtro = Builders<Inmueble>.Filter.In(x => x.Agencia, new[] { "García Propiedades" });
         var list = collection.Find(filtro).ToList();
         return Ok(list);
     }
